@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
 });
 const uploadImg = multer({
   storage: storage,
-}).array("image", 2);
+}).array("image", 12);
 
 
 
