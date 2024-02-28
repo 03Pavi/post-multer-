@@ -13,8 +13,16 @@ const storage = multer.diskStorage({
 });
 const uploadImg = multer({
   storage: storage,
-}).array("image", 12);
+}).array("image", 2);
 
-
-
-router.post("/uploads", uploadImg, uploadController);
+router.post("/uploads", (req, res) => {
+  uploadImg(req, res, (err) => {
+    if (err instanceof multer.MulterError) {
+      return res.status(400).send({ success: false, message: err.message });
+    } else if (err) {
+      return res.status(400).send({ success: false, message: err.message  });
+    } else {
+      uploadController(req, res);
+    }
+  });
+});
